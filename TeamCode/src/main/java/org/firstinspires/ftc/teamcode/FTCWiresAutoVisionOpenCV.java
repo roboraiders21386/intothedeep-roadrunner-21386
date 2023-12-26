@@ -67,9 +67,7 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     //Vision parameters
-    //private TfodProcessor tfod;
     private VisionOpenCV visionOpenCV;
-    private VisionPortal visionPortal;
 
     //Define and declare Robot Starting Locations
     public enum START_POSITION{
@@ -479,7 +477,6 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
                         break;
                 }
             }
-            return;
         }
     }
 
@@ -488,6 +485,4 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         LEFT_OF_CAMERA_MID,
         RIGHT_OF_CAMERA_MID
     }
-
-
 }   // end class

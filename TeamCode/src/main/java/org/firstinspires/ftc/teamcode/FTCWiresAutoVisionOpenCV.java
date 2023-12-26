@@ -338,14 +338,25 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
     /**
      * Initialize the Open CV Object Detection processor.
      */
+    public Rect rectLeftOfCameraMid, rectRightOfCameraMid;
     private void initOpenCV() {
         visionOpenCV = new VisionOpenCV(hardwareMap);
+
+        if (startPosition == START_POSITION.RED_LEFT ||
+                startPosition == START_POSITION.BLUE_LEFT) {
+            rectLeftOfCameraMid = new Rect(10, 40, 150, 240);
+            rectRightOfCameraMid = new Rect(160, 40, 470, 160);
+        } else { //RED_RIGHT or BLUE_RIGHT
+            rectLeftOfCameraMid = new Rect(10, 40, 470, 160);
+            rectRightOfCameraMid = new Rect(480, 40, 150, 240);
+        }
     }
 
     /**
      * Add telemetry about TensorFlow Object Detection (TFOD) recognitions.
      */
     private void runOpenCVObjectDetection() {
+
         visionOpenCV.getSelection();
         telemetry.addLine("Vision Tensor Flow for White Pixel Detection");
         telemetry.addData("Identified Parking Location", identifiedSpikeMarkLocation);
@@ -356,9 +367,11 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         telemetry.update();
     }
 
+
+
+
     public class VisionOpenCV implements VisionProcessor {
-        public Rect rectLeftOfCameraMid = new Rect(10, 40, 150, 240);
-        public Rect rectRightOfCameraMid = new Rect(160, 40, 470, 160);
+
         CameraSelectedAroundMid selectionAroundMid = CameraSelectedAroundMid.NONE;
 
         public VisionPortal visionPortal;

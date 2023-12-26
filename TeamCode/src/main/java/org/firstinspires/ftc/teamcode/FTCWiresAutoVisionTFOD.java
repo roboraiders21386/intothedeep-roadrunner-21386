@@ -48,8 +48,8 @@ import java.util.List;
 /**
  * FTC WIRES Autonomous Example for only vision detection using tensorflow and park
  */
-@Autonomous(name = "FTC Wires Autonomous Mode", group = "00-Autonomous", preselectTeleOp = "FTC Wires TeleOp")
-public class FTCWiresAutonomous extends LinearOpMode {
+@Autonomous(name = "FTC Wires Auto Tensor Flow Vision", group = "00-Autonomous", preselectTeleOp = "FTC Wires TeleOp")
+public class FTCWiresAutoVisionTFOD extends LinearOpMode {
 
     public static String TEAM_NAME = "EDIT TEAM NAME"; //TODO: Enter team Name
     public static int TEAM_NUMBER = 0; //TODO: Enter team Number
@@ -87,7 +87,13 @@ public class FTCWiresAutonomous extends LinearOpMode {
         initTfod();
 
         // Wait for the DS start button to be touched.
+        telemetry.addLine("Vision Tensor Flow for White Pixel Detection");
         telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
+        telemetry.addLine("The starting point of the robot is assumed to be on the starting tile, " +
+                "and along the edge farther from the truss legs. ");
+        telemetry.addLine("You should also have a webcam connected and positioned in a way to see " +
+                "the middle spike mark and the spike mark away from the truss (and ideally nothing else). " +
+                "We assumed the camera to be in the center of the robot. ");
         telemetry.addData(">", "Touch Play to start OpMode");
         telemetry.update();
         //waitForStart();
@@ -97,7 +103,8 @@ public class FTCWiresAutonomous extends LinearOpMode {
 
             //Run Vuforia Tensor Flow and keep watching for the identifier in the Signal Cone.
             runTfodTensorFlow();
-            telemetry.addData("Vision identified Parking Location", identifiedSpikeMarkLocation);
+            telemetry.addLine("Vision Tensor Flow for White Pixel Detection");
+            telemetry.addData("Identified Parking Location", identifiedSpikeMarkLocation);
             telemetry.update();
         }
 
@@ -283,6 +290,7 @@ public class FTCWiresAutonomous extends LinearOpMode {
             telemetry.addData("Initializing FTC Wires (ftcwires.org) Autonomous adopted for Team:",
                     TEAM_NAME, " ", TEAM_NUMBER);
             telemetry.addData("---------------------------------------","");
+            telemetry.addLine("This Auto program uses Vision Tensor Flow for White pixel detection");
             telemetry.addData("Select Starting Position using XYAB on Logitech (or ▢ΔOX on Playstayion) on gamepad 1:","");
             telemetry.addData("    Blue Left   ", "(X / ▢)");
             telemetry.addData("    Blue Right ", "(Y / Δ)");
@@ -374,7 +382,7 @@ public class FTCWiresAutonomous extends LinearOpMode {
                 }
             } else { //RED_RIGHT or BLUE_RIGHT
                 if (recognition.getLabel() == "Pixel") {
-                    if (x < 200) {
+                    if (x < 350) {
                         identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.MIDDLE;
                     } else {
                         identifiedSpikeMarkLocation = IDENTIFIED_SPIKE_MARK_LOCATION.RIGHT;

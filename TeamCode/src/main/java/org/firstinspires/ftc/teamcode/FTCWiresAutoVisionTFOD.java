@@ -101,7 +101,7 @@ public class FTCWiresAutoVisionTFOD extends LinearOpMode {
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.addData("Selected Starting Position", startPosition);
 
-            //Run Vuforia Tensor Flow and keep watching for the identifier in the Signal Cone.
+            //Run Vuforia Tensor Flow and keep watching for the White Pixel on the spike mark.
             runTfodTensorFlow();
             telemetry.addLine("Vision Tensor Flow for White Pixel Detection");
             telemetry.addData("Identified Parking Location", identifiedSpikeMarkLocation);

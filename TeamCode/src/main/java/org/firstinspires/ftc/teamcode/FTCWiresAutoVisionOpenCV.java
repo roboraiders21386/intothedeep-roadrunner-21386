@@ -110,7 +110,7 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.addData("Selected Starting Position", startPosition);
 
-            //Run Open CV Object Detection and keep watching for the identifier in the Signal Cone.
+            //Run Open CV Object Detection and keep watching for the Team Element on the spike marks.
             runOpenCVObjectDetection();
         }
 

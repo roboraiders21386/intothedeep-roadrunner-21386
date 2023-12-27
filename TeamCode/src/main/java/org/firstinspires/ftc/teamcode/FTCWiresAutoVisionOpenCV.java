@@ -92,7 +92,7 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         selectStartingPosition();
         telemetry.addData("Selected Starting Position", startPosition);
 
-        //Activate Camera Vision that uses TensorFlow for pixel detection
+        //Activate Camera Vision that uses Open CV Vision processor for Team Element detection
         initOpenCV();
 
         // Wait for the DS start button to be touched.
@@ -110,14 +110,12 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         while (!isStopRequested() && !opModeIsActive()) {
             telemetry.addData("Selected Starting Position", startPosition);
 
-            //Run Vuforia Tensor Flow and keep watching for the identifier in the Signal Cone.
+            //Run Open CV Object Detection and keep watching for the identifier in the Signal Cone.
             runOpenCVObjectDetection();
         }
 
-
         //Game Play Button  is pressed
         if (opModeIsActive() && !isStopRequested()) {
-            //visionPortal.stopStreaming();
             //Build parking trajectory based on last detected target by vision
             runAutonoumousMode();
         }
@@ -298,7 +296,7 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
             telemetry.addData("Initializing FTC Wires (ftcwires.org) Autonomous adopted for Team:",
                     TEAM_NAME, " ", TEAM_NUMBER);
             telemetry.addData("---------------------------------------","");
-            telemetry.addLine("This Auto program uses Vision Tensor Flow for White pixel detection");
+            telemetry.addLine("This Auto program uses Open CV Vision Processor for Team Element detection");
             telemetry.addData("Select Starting Position using XYAB on Logitech (or ▢ΔOX on Playstayion) on gamepad 1:","");
             telemetry.addData("    Blue Left   ", "(X / ▢)");
             telemetry.addData("    Blue Right ", "(Y / Δ)");
@@ -351,12 +349,11 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
     }
 
     /**
-     * Add telemetry about TensorFlow Object Detection (TFOD) recognitions.
+     * Add telemetry about Object Detection recognitions.
      */
     private void runOpenCVObjectDetection() {
-
         visionOpenCV.getSelection();
-        telemetry.addLine("Vision Tensor Flow for White Pixel Detection");
+        telemetry.addLine("Open CV based Vision Processor for Team Element Detection");
         telemetry.addData("Identified Parking Location", identifiedSpikeMarkLocation);
         telemetry.addData("SatLeftOfCameraMid", visionOpenCV.satRectLeftOfCameraMid);
 
@@ -364,9 +361,6 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         telemetry.addData("SatRectNone", visionOpenCV.satRectNone);
         telemetry.update();
     }
-
-
-
 
     public class VisionOpenCV implements VisionProcessor {
 
@@ -388,7 +382,6 @@ public class FTCWiresAutoVisionOpenCV extends LinearOpMode {
         @Override
         public void init(int width, int height, CameraCalibration calibration) {
         }
-
 
         @Override
         public Object processFrame(Mat frame, long captureTimeNanos) {

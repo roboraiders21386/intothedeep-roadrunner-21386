@@ -5,23 +5,30 @@ import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.TankDrive;
 import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
-/**
- * FTC WIRES TeleOp Example
- *
- */
 
-@TeleOp(name = "FTC Wires TeleOp", group = "00-Teleop")
+@TeleOp(name = "Tx-Rx TeleOp", group = "00-Teleop")
 public class FTCWiresTeleOpMode extends LinearOpMode {
+    private DcMotor lift;
+    private Servo intake;
+    private Servo arm;
     @Override
     public void runOpMode() throws InterruptedException {
         double SLOW_DOWN_FACTOR = 0.5; //TODO Adjust to driver comfort
-        telemetry.addData("Initializing FTC Wires (ftcwires.org) TeleOp adopted for Team:","TEAM NUMBER");
+        double LOW_BASKET_LIFT = 0.2; //TODO Make sure this is accruate when we have game elements
+        telemetry.addData("Initializing FTC Wires (ftcwires.org) TeleOp adopted for Team:","21386");
         telemetry.update();
+
+        //initializing
+        lift = hardwareMap.get(DcMotor.class, "LIFT");
+        //intake = hardwareMap.get(Servo.class, "INTAKE"); JUST IN CASE
+        //arm = hardwareMap.get(Servo.class, "ARM");
 
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
             MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -74,6 +81,36 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
             }
         } else {
             throw new AssertionError();
+        }
+        if (gamepad1.circle){
+            lift.setTargetPosition(0); //set to start position
+            telemetry.addData("Set to", "start value");
+            telemetry.update();
+        }
+        if (gamepad1.triangle){
+            lift.setTargetPosition(1000);//set to low position
+            telemetry.addData("Set to", "low value");
+            telemetry.update();
+        }
+        if (gamepad1.cross){
+            lift.setTargetPosition(700);//set to rigging/specimin position
+            telemetry.addData("Set to", "specimin value");
+            telemetry.update();
+        }
+        if (gamepad1.square){
+            lift.setTargetPosition(1500);//set to high position
+            telemetry.addData("Set to", "high value");
+            telemetry.update();
+        }
+        if (gamepad1.dpad_up){
+            lift.setTargetPosition(lift.getCurrentPosition()+50);
+            telemetry.addData("Incrementing by", "50");
+            telemetry.update();
+        }
+        if (gamepad1.dpad_down){
+            lift.setTargetPosition(lift.getCurrentPosition()-50);
+            telemetry.addData("Decrementing by", "50");
+            telemetry.update();
         }
     }
 }

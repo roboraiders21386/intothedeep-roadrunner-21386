@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 @TeleOp
 
-public class TeleOp10_13_2024 extends LinearOpMode {
+public class TeleOp10_14_2024 extends LinearOpMode {
     private DcMotor Lift;
     private DcMotor RF;
     private DcMotor LF;
@@ -43,7 +43,7 @@ public class TeleOp10_13_2024 extends LinearOpMode {
         Rotation = hardwareMap.get(Servo.class, "rotate");
         Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift.setDirection(DcMotorSimple.Direction.FORWARD);
-        //Claw = hardwareMap.get(Servo.class, "claw"); //Specimen Claw
+        Claw = hardwareMap.get(Servo.class, "claw"); //Specimen Claw
         /*double ServoPosition;
         double ServoSpeed;
         int currentPos;
@@ -73,10 +73,10 @@ public class TeleOp10_13_2024 extends LinearOpMode {
               RB.setPower(-dp * gamepad1.left_stick_x);
             }
             //StartIntake
-            if (gamepad1.right_bumper) {
+            if (!gamepad1.start && gamepad1.right_bumper) {
                 Intake.setPower(intPow);
             }
-            else if (gamepad1.left_bumper) {
+            else if (!gamepad1.start && gamepad1.left_bumper) {
                 Intake.setPower(-intPow);
             }
             else {
@@ -122,6 +122,11 @@ public class TeleOp10_13_2024 extends LinearOpMode {
                     telemetry.addData("Target Position", Lift.getTargetPosition());
                     telemetry.update();
                 }
+            }
+            if (gamepad1.start && gamepad1.left_bumper) { //Open
+                Claw.setPosition(0.5);
+            } else if (gamepad1.start && gamepad1.right_bumper) { //Close
+                Claw.setPosition(0.8);
             }
             telemetry.update();
             LF.setPower(0);

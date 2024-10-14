@@ -126,7 +126,7 @@ public class TeleOp10_14_2024 extends LinearOpMode {
             if (gamepad1.start && gamepad1.left_bumper) { //Open
                 Claw.setPosition(0.5);
             } else if (gamepad1.start && gamepad1.right_bumper) { //Close
-                Claw.setPosition(0.8);
+                Claw.setPosition(0.75);
             }
             telemetry.update();
             LF.setPower(0);

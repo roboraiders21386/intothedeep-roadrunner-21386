@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.TELEOP;
 //libraries are a collection of resources
+import android.hardware.Sensor;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDrive;
@@ -23,6 +28,9 @@ public class TeleOpimtrying extends LinearOpMode{
     private Servo Extension;
     private Servo Rotation;
     private Servo Claw;
+    ColorSensor colorSensor;    // Hardware Device Object
+    LED RLED, LLED;
+
     //declaring a variable - giving a name to a value
     private double dp = 0.5;
     private double intPow = 0.5;
@@ -41,6 +49,7 @@ public class TeleOpimtrying extends LinearOpMode{
         Extension = hardwareMap.get(Servo.class, "extend");
         Rotation = hardwareMap.get(Servo.class, "rotate");//is this the thing that rotates backwards
         Claw = hardwareMap.get(Servo.class, "claw"); //Specimen Claw
+        colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //setting a direction for your motor and initializing the encoder - a device that tracks how far your robot is going using ticks
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -147,6 +156,23 @@ public class TeleOpimtrying extends LinearOpMode{
         }
         if (gamepad1.right_trigger>0){
             Claw.setPosition(1);
+        }
+        //color sensor!!
+        Gamepad.LedEffect reddetect = new Gamepad.LedEffect.Builder()
+                .addStep(1, 0, 0, 250) // Show red for 250ms
+                .build();
+        Gamepad.LedEffect bluedetect = new Gamepad.LedEffect.Builder()
+                .addStep(0, 0, 1, 250) // Show blue for 250ms
+                .build();
+        Gamepad.LedEffect neutral = new Gamepad.LedEffect.Builder()
+                .addStep(1, 1, 0, 250) // Show yellow(????) for 250ms
+                .build();
+        if ((colorSensor.red() > 100)){
+            gamepad1.runLedEffect(reddetect);
+        }else if ((colorSensor.blue()>100)){
+            gamepad1.runLedEffect(bluedetect);
+        } else{
+            gamepad1.runLedEffect(neutral);
         }
     }
 }

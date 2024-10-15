@@ -174,5 +174,5 @@ public class TeleOpimtrying extends LinearOpMode{
         } else{
             gamepad1.runLedEffect(neutral);
         }
-    }
+    }//I'm screwed T-T
 }

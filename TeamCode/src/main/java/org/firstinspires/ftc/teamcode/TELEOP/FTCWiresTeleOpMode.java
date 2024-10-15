@@ -15,9 +15,9 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 @TeleOp(name = "Tx-Rx TeleOp", group = "00-Teleop")
 public class FTCWiresTeleOpMode extends LinearOpMode {
-    private DcMotor lift;
     private Servo intake;
     private Servo arm;
+    private DcMotor lift;
     @Override
     public void runOpMode() throws InterruptedException {
         double SLOW_DOWN_FACTOR = 0.5; //TODO Adjust to driver comfort

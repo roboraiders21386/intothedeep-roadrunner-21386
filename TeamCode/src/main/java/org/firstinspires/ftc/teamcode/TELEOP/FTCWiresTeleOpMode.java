@@ -26,7 +26,7 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
         telemetry.update();
 
         //initializing
-        lift = hardwareMap.get(DcMotor.class, "LIFT");
+        lift = hardwareMap.get(DcMotor.class, "lift");
         //intake = hardwareMap.get(Servo.class, "INTAKE"); JUST IN CASE
         //arm = hardwareMap.get(Servo.class, "ARM");
 

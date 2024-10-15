@@ -21,7 +21,7 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         double SLOW_DOWN_FACTOR = 0.5; //TODO Adjust to driver comfort
-        double LOW_BASKET_LIFT = 0.2; //TODO Make sure this is accruate when we have game elements
+        double LOW_BASKET_LIFT = 1000; //TODO Make sure this is accruate when we have game elements
         telemetry.addData("Initializing FTC Wires (ftcwires.org) TeleOp adopted for Team:","21386");
         telemetry.update();
 

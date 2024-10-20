@@ -88,14 +88,16 @@ public class TeleOp10_14_2024 extends LinearOpMode {
             else if (gamepad1.dpad_down) {
                 Extension.setPosition(0);
             }
-            if (gamepad1.dpad_right) {
+            if (gamepad1.start && gamepad1.dpad_right) {
                 Rotation.setPosition(0);
             }
-            else if (gamepad1.dpad_left) {
+            else if (!gamepad1.start && gamepad1.dpad_left) {
                 Rotation.setPosition(0.2-0.005);
             }
-            else if (gamepad1.back) {
+            else if (!gamepad1.start && gamepad1.dpad_right) {
                 Rotation.setPosition(0.05);
+            } else if (gampead1.start && gamepad1.dpad_left) {
+                Rotation.setPosition(0.07);
             }
             if (gamepad1.right_trigger>0) {
                 Lift.setPower(liftPow);

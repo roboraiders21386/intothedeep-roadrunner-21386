@@ -113,8 +113,18 @@ public class TeleOp10_14_2024 extends LinearOpMode {
                     telemetry.update();
                 }
             }
+            if (gamepad1.b) {
+                Lift.setTargetPosition(200);//To be updated, Belt is loose
+                Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Lift.setPower(liftPow);
+                while (Lift.isBusy()) {
+                    telemetry.addData("Current Position", Lift.getCurrentPosition());
+                    telemetry.addData("Target Position", Lift.getTargetPosition());
+                    telemetry.update();
+                }
+            }
             if (gamepad1.y) {
-                Lift.setTargetPosition(1000);//To be updated, Belt is loose
+                Lift.setTargetPosition(500);//To be updated, Belt is loose
                 Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Lift.setPower(liftPow);
                 while (Lift.isBusy()) {

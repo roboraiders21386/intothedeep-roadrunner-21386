@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode.TELEOP;
+package org.firstinspires.ftc.teamcode.opmodes.TELEOP;
 //libraries are a collection of resources
-import android.hardware.Sensor;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
@@ -115,22 +114,22 @@ public class TeleOpimtrying extends LinearOpMode{
             throw new AssertionError();
         }
         //ps5 code
-        if (gamepad1.circle){
+        if (gamepad1.circle || gamepad1.b){
             lift.setTargetPosition(0); //set to start position
             telemetry.addData("Set to", "start value");
             telemetry.update();
         }
-        if (gamepad1.triangle){
+        if (gamepad1.triangle || gamepad1.y){
             lift.setTargetPosition(1000);//set to low position
             telemetry.addData("Set to", "low value");
             telemetry.update();
         }
-        if (gamepad1.cross){
+        if (gamepad1.cross || gamepad1.a){
             lift.setTargetPosition(700);//set to rigging/specimen position
             telemetry.addData("Set to", "specimen value");
             telemetry.update();
         }
-        if (gamepad1.square){
+        if (gamepad1.square || gamepad1.x){
             lift.setTargetPosition(1500);//set to high position
             telemetry.addData("Set to", "high value");
             telemetry.update();
